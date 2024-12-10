@@ -64,6 +64,48 @@ void insertNodeTail(Node * &head, Node * &newCustomer) {
 }
 
 void deleteNodeHead(Node * &head) {
-    
+    // just return the function if there are no elements in linked list
+    if (head == nullptr) {
+        return;
+    }
+    // set current to the head
+    Node * curr = head;
+    // advance the head to the next pointer 
+    head = head->next;
+    // delete what current points to - the old 
+    delete curr;
+}
 
+
+void outputCoffeeLine(Node * &head) {
+    
+    if (!head) {
+        cout << "No customers in coffee line!" << endl;
+        return;
+    }
+
+    Node * curr = head;
+    while (curr) {
+
+        // display curr Node data
+        cout << "Customer Name: " << curr->customer_name << " Drink Order: " << curr->drink_order << endl;
+
+        // move curr to next Node to advance through line
+        curr = curr->next;
+    }
+
+}
+
+void deleteLinkedList(Node * &head) {
+    Node * curr = head;
+
+    // while curr is not null
+    while(curr) {
+        // move head to next and delete curr Node
+        head = curr->next;
+        delete curr;
+        curr = head;
+    }
+    // make head point to nullptr
+    head = nullptr;
 }
