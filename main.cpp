@@ -158,7 +158,7 @@ int main () {
             newCustomer->customer_name = names[randNamesArrIndex1];
             newCustomer->drink_order = drinks[randDrinksArrIndex1];
             newCustomer->next = nullptr;
-
+            cout << newCustomer->customer_name << " has joined the coffee line!" << endl;
             insertNodeTail(head, newCustomer);
         }
         else {
@@ -174,21 +174,25 @@ int main () {
             //// Muffin /////
             // remove first person in line
             if (!muffinsDeque.empty()) {
+                cout << muffinsDeque.front().customer_name << " has left the muffin line!" << endl;
                 muffinsDeque.pop_front();
             }
 
-            // Populate Deque with muffin information
+            // Populate customer with muffin information
             int randNamesArrIndexMuffin1 = (rand() % NAMES);
             int randDrinksArrIndexMuffin1 = (rand() % MUFFINS);
             Customer tempMuffin;
             tempMuffin.customer_name = names[randNamesArrIndexMuffin1];
             tempMuffin.order = muffins[randDrinksArrIndexMuffin1];
+            cout << tempMuffin.customer_name << " has joined the muffin line!" << endl;
 
+            // add customer to the deque
             muffinsDeque.push_back(tempMuffin);
         }
         else {
             // Muffin Line
             if (!muffinsDeque.empty()) {
+                cout << muffinsDeque.front().customer_name << " has left the muffin line!" << endl;
                 muffinsDeque.pop_front();
             }
 
@@ -199,6 +203,7 @@ int main () {
             //// Bracelet ////
             // remove first person in bracelet line
             if (!braceletsVec.empty()) {
+                cout << braceletsVec.front().customer_name << " has left the bracelets line!" << endl;
                 braceletsVec.erase(braceletsVec.begin());
             }
 
@@ -208,12 +213,15 @@ int main () {
             Customer tempBracelet;
             tempBracelet.customer_name = names[randNamesArrIndexBracelet1];
             tempBracelet.order = braceletColors[randColorArrIndexBracelet1];
+            cout << tempBracelet.customer_name << " has joined the bracelets line!" << endl;
+
             // enter new bracelet customer into vector
             braceletsVec.push_back(tempBracelet);
         }
         else {
             // Bracelet Line
             if (!braceletsVec.empty()) {
+                cout << braceletsVec.front().customer_name << " has left the bracelets line!" << endl;
                 braceletsVec.erase(braceletsVec.begin());
             }
         }
@@ -222,6 +230,7 @@ int main () {
         if (icecream_prob <= 50) {
             //// Ice Cream //// 
             if (!iceCreamList.empty()) {
+                cout << iceCreamList.front().customer_name << " has left the ice cream line!" << endl;
                 iceCreamList.pop_front();
             }
 
@@ -231,6 +240,7 @@ int main () {
             Customer tempIceCream;
             tempIceCream.customer_name = names[randNamesArrIndexIceCream1];
             tempIceCream.order = iceCreamFlavors[randFlavorArrIndexIceCream1];
+            cout << tempIceCream.customer_name << " has joined the ice cream line!" << endl;
             // enter ice cream customer information into List object
             iceCreamList.push_back(tempIceCream);
         }
@@ -239,11 +249,12 @@ int main () {
         else {
             // Ice Cream Line
             if (!iceCreamList.empty()) {
+                cout << iceCreamList.front().customer_name << " has left the ice cream line!" << endl;
                 iceCreamList.pop_front();
             }
         }
 
-        cout << "Coffee Line: " << endl;
+        cout << "\nCoffee Line: " << endl;
         outputCoffeeLine(head);
         cout << "Muffin Line: " << endl;
         displayDeque(muffinsDeque, muffinsDeque.size());
@@ -255,7 +266,6 @@ int main () {
         cout << endl;
 
     }
-
 
     return 0;
 }
@@ -281,7 +291,9 @@ void insertNodeTail(Node * &head, Node * &newCustomer) {
         newCustomer->next = curr;
         prev->next = newCustomer;
 
+
     }
+
 }
 
 void deleteNodeHead(Node * &head) {
@@ -291,10 +303,13 @@ void deleteNodeHead(Node * &head) {
     }
     // set current to the head
     Node * curr = head;
+    cout << head->customer_name << " has left the coffee line!" << endl;
     // advance the head to the next pointer 
     head = head->next;
     // delete what current points to - the old 
     delete curr;
+
+    
 }
 
 
