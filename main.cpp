@@ -35,6 +35,23 @@ int main () {
         "Cafe au Lait", "Long Black", "Doppio", "Vienna Coffee", "Red Eye"
     };
 
+    // initializes linked list to store coffee shop
+    Node *head = nullptr;
+
+    // Populate queue with 3 customers
+    for (int i = 0; i < 3; i++) {
+        int randNamesArrIndex = (rand() % 20);
+        int randDrinksArrIndex = (rand() % 20);
+
+        Node *newCustomer = new Node;
+        newCustomer->customer_name = names[randNamesArrIndex];
+        newCustomer->drink_order = drinks[randDrinksArrIndex];
+        newCustomer->next = nullptr;
+
+        insertNodeTail(head, newCustomer);
+    }
+
+    outputCoffeeLine(head);
 
 
     return 0;
