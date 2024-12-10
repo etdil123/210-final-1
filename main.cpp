@@ -36,6 +36,8 @@ int main () {
     int NAMES = 20;
     int DRINKS = 20;
     int MUFFINS = 10;
+    int COLORS = 20;
+
     int ROUNDS = 5;
     // array of random names
     string names[20] = {
@@ -58,6 +60,13 @@ int main () {
         "Pumpkin Spice", "Apple Cinnamon", 
         "Double Chocolate", "Vanilla Bean", "Strawberry"
     };
+    // array of random bracelet colors for order
+    string braceletColors[20] = {
+        "Red", "Blue", "Green", "Yellow", "Purple",
+        "Orange", "Pink", "Brown", "Black", "White",
+        "Gray", "Cyan", "Magenta", "Teal", "Maroon",
+        "Navy", "Gold", "Silver", "Olive", "Beige"
+    };
 
     // initializes linked list to store coffee shop
     Node *head = nullptr;
@@ -76,7 +85,7 @@ int main () {
         newCustomer->customer_name = names[randNamesArrIndexCoffee];
         newCustomer->drink_order = drinks[randDrinksArrIndexCoffee];
         newCustomer->next = nullptr;
-
+        // enter new coffee customer into linked list
         insertNodeTail(head, newCustomer);
 
         // Populate Deque with muffin information
@@ -85,8 +94,17 @@ int main () {
         Customer tempMuffin;
         tempMuffin.customer_name = names[randNamesArrIndexMuffin];
         tempMuffin.order = muffins[randDrinksArrIndexMuffin];
-
+        // enter the new customer into deque
         muffinsDeque.push_back(tempMuffin);
+
+        // Populate Vector with bracelet information
+        int randNamesArrIndexBracelet = (rand() % NAMES);
+        int randColorArrIndexBracelet = (rand() % COLORS);
+        Customer tempBracelet;
+        tempBracelet.customer_name = names[randNamesArrIndexBracelet];
+        tempBracelet.order = braceletColors[randColorArrIndexBracelet];
+        // enter new bracelet customer into vector
+        braceletsVec.push_back(tempBracelet);
     }
 
     // Simulation of 10 rounds
@@ -97,6 +115,7 @@ int main () {
         // get a random probability between 0 and 100
         int prob = rand() % 100 + 1;
 
+        // If probability less or equal to 50 - customer at front leaves AND new customer joins the end of line
         if (prob <= 50) {
             //// COFFEE /////
             // remove the first person in line
@@ -125,7 +144,14 @@ int main () {
 
             muffinsDeque.push_back(tempMuffin);
 
+            //// Bracelet ////
+            // remove first person in bracelet line
+            braceletsVec.erase(braceletsVec.begin());
+
+            // Populate Vector with new bracelet customer
+
         }
+        // else customer at start of line leaves ONLY
         else {
             ////// Coffee ////
             // remove the first person in line
@@ -240,6 +266,9 @@ void displayVec(vector<Customer> braceletsVec, int size) {
     }
 
     else {
-        // for
+        // for each element in the vector - print out the information
+        for (int i = 0; i < size; i++) {
+            cout << "   >Name: " << braceletsVec[i].customer_name << endl;
+        }
     }
 }
