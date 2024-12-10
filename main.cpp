@@ -2,6 +2,7 @@
 #include <string>
 #include <deque>
 #include <vector>
+#include <list>
 using namespace std;
 
 struct Node {
@@ -33,12 +34,14 @@ void displayDeque(deque<Customer>, int size);
 void displayVec(vector<Customer>, int size);
 
 int main () {
+    // Constants to store number of each data arrays
     int NAMES = 20;
     int DRINKS = 20;
     int MUFFINS = 10;
     int COLORS = 20;
 
-    int ROUNDS = 5;
+
+    int ROUNDS = 10;
     // array of random names
     string names[20] = {
         "Alice", "Bob", "Charlie", "Diana", "Evan",
@@ -66,6 +69,13 @@ int main () {
         "Orange", "Pink", "Brown", "Black", "White",
         "Gray", "Cyan", "Magenta", "Teal", "Maroon",
         "Navy", "Gold", "Silver", "Olive", "Beige"
+    };
+    // array of Ice Cream flavors
+    string iceCreamFlavors[20] = {
+        "Vanilla", "Chocolate", "Strawberry", "Mint Chocolate Chip", "Cookie Dough",
+        "Rocky Road", "Butter Pecan", "Cookies and Cream", "Pistachio", "Caramel",
+        "Mango", "Coffee", "Lemon", "Raspberry", "Peach",
+        "Blackberry Cheesecake", "Coconut", "Salted Caramel", "Tiramisu", "Chocolate Fudge Brownie"
     };
 
     // initializes linked list to store coffee shop
@@ -149,7 +159,13 @@ int main () {
             braceletsVec.erase(braceletsVec.begin());
 
             // Populate Vector with new bracelet customer
-
+            int randNamesArrIndexBracelet = (rand() % NAMES);
+            int randColorArrIndexBracelet = (rand() % COLORS);
+            Customer tempBracelet;
+            tempBracelet.customer_name = names[randNamesArrIndexBracelet];
+            tempBracelet.order = braceletColors[randColorArrIndexBracelet];
+            // enter new bracelet customer into vector
+            braceletsVec.push_back(tempBracelet);
         }
         // else customer at start of line leaves ONLY
         else {
@@ -159,12 +175,17 @@ int main () {
 
             //// Muffin ////
             muffinsDeque.pop_front();
+
+            //// Bracelet ////
+            braceletsVec.erase(braceletsVec.begin());
         }
 
         cout << "Coffee Line: " << endl;
         outputCoffeeLine(head);
         cout << "Muffin Line: " << endl;
         displayDeque(muffinsDeque, muffinsDeque.size());
+        cout << "Bracelets Line: " << endl;
+        displayVec(braceletsVec, braceletsVec.size());
         cout << endl;
 
     }
@@ -268,7 +289,7 @@ void displayVec(vector<Customer> braceletsVec, int size) {
     else {
         // for each element in the vector - print out the information
         for (int i = 0; i < size; i++) {
-            cout << "   >Name: " << braceletsVec[i].customer_name << endl;
+            cout << "   >Name: " << braceletsVec[i].customer_name <<  "  |  Order: " << braceletsVec[i].order << endl;
         }
     }
 }
