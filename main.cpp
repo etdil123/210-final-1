@@ -169,12 +169,8 @@ int main () {
 
         }
 
-
-
-
-
-
-
+        // If probability less or equal to 50 - customer at front leaves AND new customer joins the end of line
+        if (muffins_prob <= 50) {
             //// Muffin /////
             // remove first person in line
             if (!muffinsDeque.empty()) {
@@ -189,7 +185,17 @@ int main () {
             tempMuffin.order = muffins[randDrinksArrIndexMuffin1];
 
             muffinsDeque.push_back(tempMuffin);
+        }
+        else {
+            // Muffin Line
+            if (!muffinsDeque.empty()) {
+                muffinsDeque.pop_front();
+            }
 
+        }
+
+        // If probability less or equal to 50 - customer at front leaves AND new customer joins the end of line
+        if (bracelets_prob <= 50) {
             //// Bracelet ////
             // remove first person in bracelet line
             if (!braceletsVec.empty()) {
@@ -204,7 +210,16 @@ int main () {
             tempBracelet.order = braceletColors[randColorArrIndexBracelet1];
             // enter new bracelet customer into vector
             braceletsVec.push_back(tempBracelet);
+        }
+        else {
+            // Bracelet Line
+            if (!braceletsVec.empty()) {
+                braceletsVec.erase(braceletsVec.begin());
+            }
+        }
 
+        // If probability less or equal to 50 - customer at front leaves AND new customer joins the end of line
+        if (icecream_prob <= 50) {
             //// Ice Cream //// 
             if (!iceCreamList.empty()) {
                 iceCreamList.pop_front();
@@ -218,22 +233,10 @@ int main () {
             tempIceCream.order = iceCreamFlavors[randFlavorArrIndexIceCream1];
             // enter ice cream customer information into List object
             iceCreamList.push_back(tempIceCream);
-
         }
+
         // else customer at start of line leaves ONLY
         else {
-
-
-            // Muffin Line
-            if (!muffinsDeque.empty()) {
-                muffinsDeque.pop_front();
-            }
-
-            // Bracelet Line
-            if (!braceletsVec.empty()) {
-                braceletsVec.erase(braceletsVec.begin());
-            }
-
             // Ice Cream Line
             if (!iceCreamList.empty()) {
                 iceCreamList.pop_front();
