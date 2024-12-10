@@ -1,3 +1,4 @@
+// Ethan Dilk | Final Exam Problem | COMSC 210
 #include <iostream>
 #include <string>
 #include <deque>
@@ -311,7 +312,6 @@ void deleteNodeHead(Node * &head) {
     delete curr; 
 }
 
-
 void outputCoffeeLine(Node * &head) {
     
     if (!head) {
@@ -344,7 +344,6 @@ void deleteLinkedList(Node * &head) {
     // make head point to nullptr
     head = nullptr;
 }
-
 
 void displayDeque(deque<Customer> customerDeque, int size){
     // if the deque is empty - print out empty
