@@ -45,9 +45,10 @@ int main () {
     int COLORS = 20;
     int ICECREAM = 20;
 
+    int ROUNDS = 10;
+    // seed randomness
     srand(time(0));
 
-    int ROUNDS = 10;
     // array of random names
     string names[20] = {
         "Alice", "Bob", "Charlie", "Diana", "Evan",
@@ -139,7 +140,7 @@ int main () {
 
         cout << "\nRound # " << k + 1 << ": " << endl;
 
-        // get a random probability between 0 and 100
+        // get a random probability between 0 and 100 for each booth
         int coffee_prob = rand() % 100 + 1;
         int muffins_prob = rand() % 100 + 1;
         int bracelets_prob = rand() % 100 + 1;
@@ -254,6 +255,7 @@ int main () {
             }
         }
 
+        // Display the current state of each line
         cout << "\nCoffee Line: " << endl;
         outputCoffeeLine(head);
         cout << "Muffin Line: " << endl;
@@ -266,6 +268,8 @@ int main () {
         cout << endl;
 
     }
+    // delete all elements in linked list
+    deleteLinkedList(head);
 
     return 0;
 }
@@ -290,10 +294,7 @@ void insertNodeTail(Node * &head, Node * &newCustomer) {
         // at end - now insert between prev and curr
         newCustomer->next = curr;
         prev->next = newCustomer;
-
-
     }
-
 }
 
 void deleteNodeHead(Node * &head) {
@@ -307,9 +308,7 @@ void deleteNodeHead(Node * &head) {
     // advance the head to the next pointer 
     head = head->next;
     // delete what current points to - the old 
-    delete curr;
-
-    
+    delete curr; 
 }
 
 
@@ -388,6 +387,4 @@ void displayList(list<Customer> customerList){
         }
 
     }
-
-
 }
