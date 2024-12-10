@@ -1,11 +1,17 @@
 #include <iostream>
 #include <string>
+#include <deque>
 using namespace std;
 
 struct Node {
     string customer_name;
     string drink_order;
     Node * next;
+};
+
+struct Customer {
+    string customer_name;
+    string order;
 };
 
 // Coffee Booth Functions
@@ -19,9 +25,13 @@ void outputCoffeeLine(Node * &head);
 // function to delete the entire linked list
 void deleteLinkedList(Node * &head);
 
+// Muffin Booth Functions
+void displayDeque(deque<Customer>, int size);
+
 int main () {
     int NAMES = 20;
     int DRINKS = 20;
+    int MUFFINS = 10;
     int ROUNDS = 5;
     // array of random names
     string names[20] = {
@@ -37,21 +47,40 @@ int main () {
         "Affogato", "Cortado", "Ristretto", "Irish Coffee", "Turkish Coffee",
         "Cafe au Lait", "Long Black", "Doppio", "Vienna Coffee", "Red Eye"
     };
+    // array of random muffin flavors
+    string muffins[10] = {
+        "Blueberry", "Chocolate Chip", "Banana Nut", 
+        "Lemon Poppy Seed", "Cranberry Orange", 
+        "Pumpkin Spice", "Apple Cinnamon", 
+        "Double Chocolate", "Vanilla Bean", "Strawberry"
+    };
 
     // initializes linked list to store coffee shop
     Node *head = nullptr;
+    // initialize deque to store muffin shop
+    deque<Customer> muffinsDeque;
 
     // Populate queue with 3 customers
     for (int i = 0; i < 3; i++) {
-        int randNamesArrIndex = (rand() % NAMES);
-        int randDrinksArrIndex = (rand() % DRINKS);
+        // Populate Coffee Shop
+        int randNamesArrIndexCoffee = (rand() % NAMES);
+        int randDrinksArrIndexCoffee = (rand() % DRINKS);
 
         Node *newCustomer = new Node;
-        newCustomer->customer_name = names[randNamesArrIndex];
-        newCustomer->drink_order = drinks[randDrinksArrIndex];
+        newCustomer->customer_name = names[randNamesArrIndexCoffee];
+        newCustomer->drink_order = drinks[randDrinksArrIndexCoffee];
         newCustomer->next = nullptr;
 
         insertNodeTail(head, newCustomer);
+
+        // Populate Deque
+        int randNamesArrIndexMuffin = (rand() % NAMES);
+        int randDrinksArrIndexMuffin = (rand() % MUFFINS);
+        Customer tempMuffin;
+        tempMuffin.customer_name = names[randNamesArrIndexMuffin];
+        tempMuffin.drink_order = names[randDrinksArrIndexMuffin];
+
+        muffinsDeque.push_back(tempMuffin;)
     }
 
     // Simulation of 10 rounds
@@ -111,7 +140,7 @@ void insertNodeTail(Node * &head, Node * &newCustomer) {
         // at end - now insert between prev and curr
         newCustomer->next = curr;
         prev->next = newCustomer;
-        
+
     }
 }
 
@@ -160,4 +189,22 @@ void deleteLinkedList(Node * &head) {
     }
     // make head point to nullptr
     head = nullptr;
+}
+
+
+void displayDeque(deque<Customer> customerDeque, int size){
+    // if the deque is empty - print out empty
+    if (customerDeque.empty() == true) {
+        cout << "   ";
+        cout << "Empty" << endl;
+    }
+    else {
+        // for each element in deque - display information
+        for (int i = 0; i < size; i++) {
+            cout << "   ";
+            customerDeque[i].print();
+        }
+    }
+
+
 }
