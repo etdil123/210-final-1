@@ -33,12 +33,16 @@ void displayDeque(deque<Customer>, int size);
 // Bracelet Booth Functions
 void displayVec(vector<Customer>, int size);
 
+// Ice Cream Booth Functions
+void displayList(list<Customer>);
+
 int main () {
     // Constants to store number of each data arrays
     int NAMES = 20;
     int DRINKS = 20;
     int MUFFINS = 10;
     int COLORS = 20;
+    int ICECREAM = 20;
 
 
     int ROUNDS = 10;
@@ -84,6 +88,8 @@ int main () {
     deque<Customer> muffinsDeque;
     // initialize vector to store bracelets
     vector<Customer> braceletsVec;
+    // Initialize list (std::list) to store ice cream flavors
+    list<Customer> iceCreamList;
 
     // Populate queue with 3 customers
     for (int i = 0; i < 3; i++) {
@@ -115,6 +121,15 @@ int main () {
         tempBracelet.order = braceletColors[randColorArrIndexBracelet];
         // enter new bracelet customer into vector
         braceletsVec.push_back(tempBracelet);
+
+        // Populate List with Ice Cream info
+        int randNamesArrIndexIceCream = (rand() % NAMES);
+        int randFlavorArrIndexIceCream = (rand() % ICECREAM);
+        Customer tempIceCream;
+        tempIceCream.customer_name = names[randNamesArrIndexIceCream];
+        tempIceCream.order = iceCreamFlavors[randFlavorArrIndexIceCream];
+        // enter ice cream customer information into List object
+        iceCreamList.push_back(tempIceCream);
     }
 
     // Simulation of 10 rounds
@@ -166,6 +181,19 @@ int main () {
             tempBracelet.order = braceletColors[randColorArrIndexBracelet];
             // enter new bracelet customer into vector
             braceletsVec.push_back(tempBracelet);
+
+            //// Ice Cream //// 
+            iceCreamList.pop_front();
+
+             // Populate List with Ice Cream info
+            int randNamesArrIndexIceCream = (rand() % NAMES);
+            int randFlavorArrIndexIceCream = (rand() % ICECREAM);
+            Customer tempIceCream;
+            tempIceCream.customer_name = names[randNamesArrIndexIceCream];
+            tempIceCream.order = iceCreamFlavors[randFlavorArrIndexIceCream];
+            // enter ice cream customer information into List object
+            iceCreamList.push_back(tempIceCream);
+
         }
         // else customer at start of line leaves ONLY
         else {
@@ -178,6 +206,9 @@ int main () {
 
             //// Bracelet ////
             braceletsVec.erase(braceletsVec.begin());
+
+            //// Ice Cream ///
+            iceCreamList.pop_front();
         }
 
         cout << "Coffee Line: " << endl;
@@ -186,6 +217,9 @@ int main () {
         displayDeque(muffinsDeque, muffinsDeque.size());
         cout << "Bracelets Line: " << endl;
         displayVec(braceletsVec, braceletsVec.size());
+        cout << "Ice Cream Line: " << endl;
+        displayList();
+
         cout << endl;
 
     }
@@ -292,4 +326,19 @@ void displayVec(vector<Customer> braceletsVec, int size) {
             cout << "   >Name: " << braceletsVec[i].customer_name <<  "  |  Order: " << braceletsVec[i].order << endl;
         }
     }
+}
+
+void displayList(list<Customer> customerList){
+    // if list is empty display that to the user
+    if (customerList.empty() == true) {
+        cout << "No customer in ice cream line!";
+    }
+    else {
+
+        // for each element display customer information
+        for (auto )
+
+    }
+
+
 }
