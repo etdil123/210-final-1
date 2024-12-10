@@ -3,6 +3,7 @@
 #include <deque>
 #include <vector>
 #include <list>
+#include <ctime>
 using namespace std;
 
 struct Node {
@@ -44,6 +45,7 @@ int main () {
     int COLORS = 20;
     int ICECREAM = 20;
 
+    srand(time(0));
 
     int ROUNDS = 10;
     // array of random names
@@ -138,23 +140,40 @@ int main () {
         cout << "\nRound # " << k + 1 << ": " << endl;
 
         // get a random probability between 0 and 100
-        int prob = rand() % 100 + 1;
+        int coffee_prob = rand() % 100 + 1;
+        int muffins_prob = rand() % 100 + 1;
+        int bracelets_prob = rand() % 100 + 1;
+        int icecream_prob = rand() % 100 + 1;
 
         // If probability less or equal to 50 - customer at front leaves AND new customer joins the end of line
-        if (prob <= 50) {
+        if (coffee_prob <= 50) {
             //// COFFEE /////
             // remove the first person in line
             deleteNodeHead(head);
             // somebody joined the queue
-            int randNamesArrIndex = (rand() % NAMES);
-            int randDrinksArrIndex = (rand() % DRINKS);
+            int randNamesArrIndex1 = (rand() % NAMES);
+            int randDrinksArrIndex1 = (rand() % DRINKS);
 
             Node *newCustomer = new Node;
-            newCustomer->customer_name = names[randNamesArrIndex];
-            newCustomer->drink_order = drinks[randDrinksArrIndex];
+            newCustomer->customer_name = names[randNamesArrIndex1];
+            newCustomer->drink_order = drinks[randDrinksArrIndex1];
             newCustomer->next = nullptr;
 
             insertNodeTail(head, newCustomer);
+        }
+        else {
+            // Coffee Line
+            if (head) { // Check if there is something to remove
+                deleteNodeHead(head);
+            }
+
+        }
+
+
+
+
+
+
 
             //// Muffin /////
             // remove first person in line
@@ -163,11 +182,11 @@ int main () {
             }
 
             // Populate Deque with muffin information
-            int randNamesArrIndexMuffin = (rand() % NAMES);
-            int randDrinksArrIndexMuffin = (rand() % MUFFINS);
+            int randNamesArrIndexMuffin1 = (rand() % NAMES);
+            int randDrinksArrIndexMuffin1 = (rand() % MUFFINS);
             Customer tempMuffin;
-            tempMuffin.customer_name = names[randNamesArrIndexMuffin];
-            tempMuffin.order = muffins[randDrinksArrIndexMuffin];
+            tempMuffin.customer_name = names[randNamesArrIndexMuffin1];
+            tempMuffin.order = muffins[randDrinksArrIndexMuffin1];
 
             muffinsDeque.push_back(tempMuffin);
 
@@ -178,11 +197,11 @@ int main () {
             }
 
             // Populate Vector with new bracelet customer
-            int randNamesArrIndexBracelet = (rand() % NAMES);
-            int randColorArrIndexBracelet = (rand() % COLORS);
+            int randNamesArrIndexBracelet1 = (rand() % NAMES);
+            int randColorArrIndexBracelet1 = (rand() % COLORS);
             Customer tempBracelet;
-            tempBracelet.customer_name = names[randNamesArrIndexBracelet];
-            tempBracelet.order = braceletColors[randColorArrIndexBracelet];
+            tempBracelet.customer_name = names[randNamesArrIndexBracelet1];
+            tempBracelet.order = braceletColors[randColorArrIndexBracelet1];
             // enter new bracelet customer into vector
             braceletsVec.push_back(tempBracelet);
 
@@ -192,29 +211,33 @@ int main () {
             }
 
              // Populate List with Ice Cream info
-            int randNamesArrIndexIceCream = (rand() % NAMES);
-            int randFlavorArrIndexIceCream = (rand() % ICECREAM);
+            int randNamesArrIndexIceCream1 = (rand() % NAMES);
+            int randFlavorArrIndexIceCream1 = (rand() % ICECREAM);
             Customer tempIceCream;
-            tempIceCream.customer_name = names[randNamesArrIndexIceCream];
-            tempIceCream.order = iceCreamFlavors[randFlavorArrIndexIceCream];
+            tempIceCream.customer_name = names[randNamesArrIndexIceCream1];
+            tempIceCream.order = iceCreamFlavors[randFlavorArrIndexIceCream1];
             // enter ice cream customer information into List object
             iceCreamList.push_back(tempIceCream);
 
         }
         // else customer at start of line leaves ONLY
         else {
-            ////// Coffee ////
-            // remove the first person in line
-            deleteNodeHead(head);
 
-            //// Muffin ////
-            muffinsDeque.pop_front();
 
-            //// Bracelet ////
-            braceletsVec.erase(braceletsVec.begin());
+            // Muffin Line
+            if (!muffinsDeque.empty()) {
+                muffinsDeque.pop_front();
+            }
 
-            //// Ice Cream ///
-            iceCreamList.pop_front();
+            // Bracelet Line
+            if (!braceletsVec.empty()) {
+                braceletsVec.erase(braceletsVec.begin());
+            }
+
+            // Ice Cream Line
+            if (!iceCreamList.empty()) {
+                iceCreamList.pop_front();
+            }
         }
 
         cout << "Coffee Line: " << endl;
@@ -283,7 +306,7 @@ void outputCoffeeLine(Node * &head) {
     while (curr) {
 
         // display curr Node data
-        cout << "   >Name: " << curr->customer_name << "  |  Order: " << curr->drink_order << endl;
+        cout << "   >Name: " << curr->customer_name << "  --  Order: " << curr->drink_order << endl;
 
         // move curr to next Node to advance through line
         curr = curr->next;
@@ -309,13 +332,13 @@ void deleteLinkedList(Node * &head) {
 void displayDeque(deque<Customer> customerDeque, int size){
     // if the deque is empty - print out empty
     if (customerDeque.empty() == true) {
-        cout << "No customer in muffin line!";
+        cout << "No customer in muffin line!" << endl;
         
     }
     else {
         // for each element in deque - display information
         for (int i = 0; i < size; i++) {
-            cout << "   >Name: " << customerDeque[i].customer_name << "  |  Order: " << customerDeque[i].order << endl;
+            cout << "   >Name: " << customerDeque[i].customer_name << "  --  Order: " << customerDeque[i].order << endl;
         }
     }
 }
@@ -329,7 +352,7 @@ void displayVec(vector<Customer> braceletsVec, int size) {
     else {
         // for each element in the vector - print out the information
         for (int i = 0; i < size; i++) {
-            cout << "   >Name: " << braceletsVec[i].customer_name <<  "  |  Order: " << braceletsVec[i].order << endl;
+            cout << "   >Name: " << braceletsVec[i].customer_name <<  "  --  Order: " << braceletsVec[i].order << endl;
         }
     }
 }
@@ -343,7 +366,7 @@ void displayList(list<Customer> customerList){
 
         // for each element display customer information
         for (auto customer : customerList ) {
-            cout << "   >Name: " << customer.customer_name << "  |  Order: " << customer.order << endl;
+            cout << "   >Name: " << customer.customer_name << "  --  Order: " << customer.order << endl;
         }
 
     }
