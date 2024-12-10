@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <deque>
+#include <vector>
 using namespace std;
 
 struct Node {
@@ -27,6 +28,9 @@ void deleteLinkedList(Node * &head);
 
 // Muffin Booth Functions
 void displayDeque(deque<Customer>, int size);
+
+// Bracelet Booth Functions
+void displayVec(vector<Customer>, int size);
 
 int main () {
     int NAMES = 20;
@@ -59,6 +63,8 @@ int main () {
     Node *head = nullptr;
     // initialize deque to store muffin shop
     deque<Customer> muffinsDeque;
+    // initialize vector to store bracelets
+    vector<Customer> braceletsVec;
 
     // Populate queue with 3 customers
     for (int i = 0; i < 3; i++) {
@@ -73,14 +79,14 @@ int main () {
 
         insertNodeTail(head, newCustomer);
 
-        // Populate Deque
+        // Populate Deque with muffin information
         int randNamesArrIndexMuffin = (rand() % NAMES);
         int randDrinksArrIndexMuffin = (rand() % MUFFINS);
         Customer tempMuffin;
         tempMuffin.customer_name = names[randNamesArrIndexMuffin];
-        tempMuffin.drink_order = names[randDrinksArrIndexMuffin];
+        tempMuffin.order = muffins[randDrinksArrIndexMuffin];
 
-        muffinsDeque.push_back(tempMuffin;)
+        muffinsDeque.push_back(tempMuffin);
     }
 
     // Simulation of 10 rounds
@@ -92,6 +98,7 @@ int main () {
         int prob = rand() % 100 + 1;
 
         if (prob <= 50) {
+            //// COFFEE /////
             // remove the first person in line
             deleteNodeHead(head);
             // somebody joined the queue
@@ -104,14 +111,34 @@ int main () {
             newCustomer->next = nullptr;
 
             insertNodeTail(head, newCustomer);
+
+            //// Muffin /////
+            // remove first person in line
+            muffinsDeque.pop_front();
+
+            // Populate Deque with muffin information
+            int randNamesArrIndexMuffin = (rand() % NAMES);
+            int randDrinksArrIndexMuffin = (rand() % MUFFINS);
+            Customer tempMuffin;
+            tempMuffin.customer_name = names[randNamesArrIndexMuffin];
+            tempMuffin.order = muffins[randDrinksArrIndexMuffin];
+
+            muffinsDeque.push_back(tempMuffin);
+
         }
         else {
+            ////// Coffee ////
             // remove the first person in line
             deleteNodeHead(head);
+
+            //// Muffin ////
+            muffinsDeque.pop_front();
         }
 
         cout << "Coffee Line: " << endl;
         outputCoffeeLine(head);
+        cout << "Muffin Line: " << endl;
+        displayDeque(muffinsDeque, muffinsDeque.size());
         cout << endl;
 
     }
@@ -195,16 +222,24 @@ void deleteLinkedList(Node * &head) {
 void displayDeque(deque<Customer> customerDeque, int size){
     // if the deque is empty - print out empty
     if (customerDeque.empty() == true) {
-        cout << "   ";
-        cout << "Empty" << endl;
+        cout << "No customer in muffin line!";
+        
     }
     else {
         // for each element in deque - display information
         for (int i = 0; i < size; i++) {
-            cout << "   ";
-            customerDeque[i].print();
+            cout << "   >Name: " << customerDeque[i].customer_name << "  |  Order: " << customerDeque[i].order << endl;
         }
     }
+}
 
+void displayVec(vector<Customer> braceletsVec, int size) {
+    // if vector is empty - print out that it is
+    if (braceletsVec.empty() == true) {
+        cout << "No customer in bracelets line!";
+    }
 
+    else {
+        // for
+    }
 }
