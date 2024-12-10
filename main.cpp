@@ -20,6 +20,9 @@ void outputCoffeeLine(Node * &head);
 void deleteLinkedList(Node * &head);
 
 int main () {
+    int NAMES = 20;
+    int DRINKS = 20;
+    int ROUNDS = 5;
     // array of random names
     string names[20] = {
         "Alice", "Bob", "Charlie", "Diana", "Evan",
@@ -40,8 +43,8 @@ int main () {
 
     // Populate queue with 3 customers
     for (int i = 0; i < 3; i++) {
-        int randNamesArrIndex = (rand() % 20);
-        int randDrinksArrIndex = (rand() % 20);
+        int randNamesArrIndex = (rand() % NAMES);
+        int randDrinksArrIndex = (rand() % DRINKS);
 
         Node *newCustomer = new Node;
         newCustomer->customer_name = names[randNamesArrIndex];
@@ -51,7 +54,38 @@ int main () {
         insertNodeTail(head, newCustomer);
     }
 
-    outputCoffeeLine(head);
+    // Simulation of 10 rounds
+    for (int k = 0; k < ROUNDS; k++) {
+
+        cout << "\nRound # " << k + 1 << ": " << endl;
+
+        // get a random probability between 0 and 100
+        int prob = rand() % 100 + 1;
+
+        if (prob <= 50) {
+            // remove the first person in line
+            deleteNodeHead(head);
+            // somebody joined the queue
+            int randNamesArrIndex = (rand() % NAMES);
+            int randDrinksArrIndex = (rand() % DRINKS);
+
+            Node *newCustomer = new Node;
+            newCustomer->customer_name = names[randNamesArrIndex];
+            newCustomer->drink_order = drinks[randDrinksArrIndex];
+            newCustomer->next = nullptr;
+
+            insertNodeTail(head, newCustomer);
+        }
+        else {
+            // remove the first person in line
+            deleteNodeHead(head);
+        }
+
+        cout << "Coffee Line: " << endl;
+        outputCoffeeLine(head);
+        cout << endl;
+
+    }
 
 
     return 0;
@@ -77,6 +111,7 @@ void insertNodeTail(Node * &head, Node * &newCustomer) {
         // at end - now insert between prev and curr
         newCustomer->next = curr;
         prev->next = newCustomer;
+        
     }
 }
 
@@ -105,7 +140,7 @@ void outputCoffeeLine(Node * &head) {
     while (curr) {
 
         // display curr Node data
-        cout << "Customer Name: " << curr->customer_name << " Drink Order: " << curr->drink_order << endl;
+        cout << "   >Name: " << curr->customer_name << "  |  Order: " << curr->drink_order << endl;
 
         // move curr to next Node to advance through line
         curr = curr->next;
