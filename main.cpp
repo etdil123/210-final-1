@@ -158,7 +158,9 @@ int main () {
 
             //// Muffin /////
             // remove first person in line
-            muffinsDeque.pop_front();
+            if (!muffinsDeque.empty()) {
+                muffinsDeque.pop_front();
+            }
 
             // Populate Deque with muffin information
             int randNamesArrIndexMuffin = (rand() % NAMES);
@@ -171,7 +173,9 @@ int main () {
 
             //// Bracelet ////
             // remove first person in bracelet line
-            braceletsVec.erase(braceletsVec.begin());
+            if (!braceletsVec.empty()) {
+                braceletsVec.erase(braceletsVec.begin());
+            }
 
             // Populate Vector with new bracelet customer
             int randNamesArrIndexBracelet = (rand() % NAMES);
@@ -183,7 +187,9 @@ int main () {
             braceletsVec.push_back(tempBracelet);
 
             //// Ice Cream //// 
-            iceCreamList.pop_front();
+            if (!iceCreamList.empty()) {
+                iceCreamList.pop_front();
+            }
 
              // Populate List with Ice Cream info
             int randNamesArrIndexIceCream = (rand() % NAMES);
@@ -218,7 +224,7 @@ int main () {
         cout << "Bracelets Line: " << endl;
         displayVec(braceletsVec, braceletsVec.size());
         cout << "Ice Cream Line: " << endl;
-        displayList();
+        displayList(iceCreamList);
 
         cout << endl;
 
@@ -317,7 +323,7 @@ void displayDeque(deque<Customer> customerDeque, int size){
 void displayVec(vector<Customer> braceletsVec, int size) {
     // if vector is empty - print out that it is
     if (braceletsVec.empty() == true) {
-        cout << "No customer in bracelets line!";
+        cout << "No customer in bracelets line!" << endl;
     }
 
     else {
@@ -331,12 +337,14 @@ void displayVec(vector<Customer> braceletsVec, int size) {
 void displayList(list<Customer> customerList){
     // if list is empty display that to the user
     if (customerList.empty() == true) {
-        cout << "No customer in ice cream line!";
+        cout << "No customer in ice cream line!" << endl;
     }
     else {
 
         // for each element display customer information
-        for (auto )
+        for (auto customer : customerList ) {
+            cout << "   >Name: " << customer.customer_name << "  |  Order: " << customer.order << endl;
+        }
 
     }
 
